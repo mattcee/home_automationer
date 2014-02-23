@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">home_automation</string>
+    <string name="action_settings">Settings</string>
+    <string name="intro_text"> Welcome to Intelli-home</string>
+    <string name="title_activity_list">List of Plugs</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_modify">ModifyActivity</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="title_activity_my_profiles">MyProfilesActivity</string>
+
+</resources>
