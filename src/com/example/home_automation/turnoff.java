@@ -7,6 +7,10 @@ public class turnoff extends connection{
 	public turnoff()
 	{
 		super();
+		open_turnoff();
+	}
+	private void open_turnoff()
+	{
 		 try
 		    {
 		    	channel = session.openChannel("exec");

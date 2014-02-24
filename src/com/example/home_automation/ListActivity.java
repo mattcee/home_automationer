@@ -107,8 +107,10 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.Lis
 		@Override
 		protected Long doInBackground(URL... arg0) {
 			// TODO Auto-generated method stub
-			 connection c = new connection(1);
+			 connection c = new connection();
 			 c.establishConnection();
+			 turnon t = new turnon();
+			
 
 			return null;
 		}
@@ -127,13 +129,31 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.Lis
 		@Override
 		protected Long doInBackground(URL... arg0) {
 			// TODO Auto-generated method stub
-			 connection c = new connection(0);
+			
+			//might be able to get rid of the connections at this part
+			 connection c = new connection();
 			c.establishConnection();
+			turnoff t = new turnoff();
+			
 
 			return null;
 		}
 		
 	
+	}
+	
+	private class SSHconnection_overall extends AsyncTask<URL, Integer, Long>
+	{
+
+		@Override
+		protected Long doInBackground(URL... arg0) {
+			// TODO Auto-generated method stub
+			connection c = new connection();
+			c.establishConnection();
+			
+			return null;
+		}
+		
 	}
 
 

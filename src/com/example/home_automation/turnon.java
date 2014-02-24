@@ -6,6 +6,12 @@ public class turnon extends connection{
 
 	public turnon() {
 		super();
+		open_turon();
+		// TODO Auto-generated constructor stub
+	}
+	
+	private void open_turon()
+	{
 		try{
 			
 			channel = session.openChannel("exec");
@@ -16,7 +22,6 @@ public class turnon extends connection{
 		{
 			e.printStackTrace();
 		}
-		// TODO Auto-generated constructor stub
 	}
 	
 }
