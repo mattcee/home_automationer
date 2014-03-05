@@ -1,8 +1,11 @@
 package com.example.home_automation;
 
+import java.io.FileOutputStream;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.Menu;
@@ -53,6 +56,9 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+
+
 	
 	private void start_program()
 	{

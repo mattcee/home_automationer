@@ -24,7 +24,7 @@ public class ModifyFragment extends Fragment implements OnClickListener{
     Button myButton;
     scheduleButton mCallBack;
     Switch toggle;
-    
+    TextView power;
     public interface scheduleButton
     {
     	public void schedule_botton_click();
@@ -45,7 +45,11 @@ public class ModifyFragment extends Fragment implements OnClickListener{
     	//switch
     	toggle = (Switch) myView.findViewById(R.id.switch1);
     	
-
+    	
+    	//Power textView
+    	
+    	power = (TextView) myView.findViewById(R.id.powerTextView);
+    	
     	
     	
     	//use only when we get the saved preference correct
@@ -65,8 +69,23 @@ public class ModifyFragment extends Fragment implements OnClickListener{
         }
 	}
 	
+	
+	//setting the text for the text view
+	 private void powerComputation()
+	 {
+		double powerCount = 0;
+		String powerCount_text;
+		powerCount_text  = String.valueOf(powerCount);
+		power.setText(powerCount_text);
+		
+		 
+	 }
+	
+	
+	//need to change
 	public void updateTitle(int position)
 	{
+		
 		listOfPlugs plugs = new listOfPlugs();
 		String name = plugs.plug_names[position];
 		getActivity().setTitle(name);

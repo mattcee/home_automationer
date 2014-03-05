@@ -16,17 +16,35 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"
-        android:text="Switch" 
-        android:onClick="onToggleClicked"/>
+        android:layout_marginTop="74dp"
+        android:onClick="onToggleClicked"
+        android:text="Switch" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/switch1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="116dp"
+        android:layout_marginTop="40dp"
         android:text="Scheduling" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:text="@string/current_label" />
+
+    <TextView
+        android:id="@+id/powerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:text="TextView" />
 
 </RelativeLayout>

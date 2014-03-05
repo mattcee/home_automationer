@@ -7,10 +7,11 @@ public class turnoff extends connection{
 	public turnoff()
 	{
 		super();
-		open_turnoff();
 	}
-	private void open_turnoff()
+	public void open_turnoff()
 	{
+		super.establishConnection();
+
 		 try
 		    {
 		    	channel = session.openChannel("exec");
@@ -21,6 +22,9 @@ public class turnoff extends connection{
 		    {
 		    	e.printStackTrace();
 		    }
+	      session.disconnect();
+
+		 
 	}
 
 }

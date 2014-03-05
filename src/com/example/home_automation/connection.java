@@ -23,7 +23,7 @@ public class connection {
 	}
 	
 	//establish the connection to the rpi
-	public void establishConnection()
+	protected void establishConnection()
 	{
 		try
 		{
@@ -49,7 +49,7 @@ public class connection {
 		      channel.disconnect();
 		      
 		      
-		      if(status == 0)
+		/*      if(status == 0)
 		      {
 		    	  turnOff();
 		      }
@@ -58,8 +58,7 @@ public class connection {
 		    	  turnOn();
 		    	  
 		      }
-		     
-		      session.disconnect();
+		     */
 
 
 		}catch(Exception e)
@@ -99,7 +98,7 @@ public class connection {
 	    }
 	}
 	
-	public void disconnect()
+	private void disconnect()
 	{
 		session.disconnect();
 	}

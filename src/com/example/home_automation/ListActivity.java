@@ -1,8 +1,15 @@
 package com.example.home_automation;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -107,9 +114,10 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.Lis
 		@Override
 		protected Long doInBackground(URL... arg0) {
 			// TODO Auto-generated method stub
-			 connection c = new connection();
-			 c.establishConnection();
-			 turnon t = new turnon();
+			//connection c = new connection(1);
+			//c.establishConnection();
+			turnon t = new turnon();
+			t.open_turon();
 			
 
 			return null;
@@ -131,10 +139,14 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.Lis
 			// TODO Auto-generated method stub
 			
 			//might be able to get rid of the connections at this part
-			 connection c = new connection();
-			c.establishConnection();
-			turnoff t = new turnoff();
+			// connection c = new connection();
+			//c.establishConnection();
 			
+			//connection c = new connection(0);
+			//c.establishConnection();
+			turnoff t = new turnoff();
+			t.open_turnoff();
+	
 
 			return null;
 		}
@@ -176,10 +188,91 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.Lis
 
     	}
     }
-
     
-    
+	 String FILENAME = "saved_devices";
 
+
+	 private void writeOutSavedDevices()
+	 {
+		 String test = "hello world!";
+		 FileOutputStream fos;
+
+		 try{
+			 
+			 fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+			 fos.write(test.getBytes());
+			 fos.close();
+			 
+			 System.out.println("finished writing");
+		 }catch(Exception e)
+		 {
+			 e.printStackTrace();
+		 }
+		 
+	 }
+	 
+	 
+		@Override 
+		protected void onDestroy()
+		{
+			super.onDestroy();
+			//write to memory
+			// writeOutSavedDevices();
+		}
+		
+		
+		@Override
+		protected void onStop()
+		{
+			super.onStop();
+			//writeOutSavedDevices();
+		}
+		
+		@Override
+		protected void onStart()
+		{
+			
+			super.onStart();
+			readSavedDevices();
+		}
+	
+		String line;
+
+		 private void readSavedDevices()
+		 {
+			 
+			 //need to add what is read in this file to listOfPlugs.plug_namez
+			 //listOfPlugs.plug_namez
+			 FileInputStream fis;
+
+			try {
+				fis = openFileInput(FILENAME);
+				   InputStreamReader isr = new InputStreamReader(fis);
+				   BufferedReader bufferedReader = new BufferedReader(isr);
+				   StringBuilder sb = new StringBuilder();
+
+					try {
+						while ((line = bufferedReader.readLine()) != null) {
+						       sb.append(line);
+						   }
+						System.out.println(sb);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.print("error in input output");
+					}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.print("file not found");
+
+			}
+			
+
+
+		 }
+		
+		
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
