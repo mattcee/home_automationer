@@ -86,8 +86,9 @@ public class ModifyFragment extends Fragment implements OnClickListener{
 	public void updateTitle(int position)
 	{
 		
-		listOfPlugs plugs = new listOfPlugs();
-		String name = plugs.plug_names[position];
+		//listOfPlugs plugs = new listOfPlugs();
+		//String name = plugs.plug_names[position];
+		String name = listOfPlugs.plug_namez.get(position);
 		getActivity().setTitle(name);
 		mCurrentPosition = position;
 	}

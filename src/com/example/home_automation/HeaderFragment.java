@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,7 +26,10 @@ import android.content.*;
 public class HeaderFragment extends ListFragment {
 
 	ListClickListener mCallBack;
-	//List<String> plug_names = new ArrayList();
+	writing wCallBack;
+	List<String> plug_names = new ArrayList();
+	List<String> plugsFromMemory = new ArrayList();
+	String[] plugs;
 	Context file = getActivity(); // for writing and reading
 	 String FILENAME = "saved_devices";
 
@@ -35,12 +39,19 @@ public class HeaderFragment extends ListFragment {
 	public interface ListClickListener{
 		public void onPlugSelected(int position);
 	}
+	public interface writing{
+		
+		public void writeOutSavedDevices(List<String> plug_names);
+	}
 	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-        	new SSHconnect_read().execute(null,null,null);
+	        
+	     	//new SSHconnect_read().execute(null,null,null);
+	     	keepChecking();
 
+			//System.out.print("size of array" + listOfPlugs.plug_namez.size());
 
 	        // We need to use a different list item layout for devices older than Honeycomb
 	        
@@ -48,38 +59,47 @@ public class HeaderFragment extends ListFragment {
 	                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
 	        // Create an array adapter for the list view, using the Ipsum headlines array
 	        //listOfPlugs plugs = new listOfPlugs();
-	        adapter = new ArrayAdapter<String>(getActivity(), layout, listOfPlugs.plug_namez);
+	        adapter = new ArrayAdapter<String>(getActivity(), layout, plug_names);
 	       // writeOutSavedDevices();
-
 	        setListAdapter(adapter);
+	        //System.out.println("size of arraylist" + plug_names.size());
 	        //readSavedDevices();
-
+	        
 	    }
 
-	 //test writing files
-	 private void writeOutSavedDevices()
+	 
+	 private void keepChecking()
 	 {
-		 //String test = "hello world!";
-		 FileOutputStream fos;
 
 		 try{
-			 
-			 fos = file.getApplicationContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
-			 for(String str : listOfPlugs.plug_namez)
+			 new Thread(new Runnable()
 			 {
-				 fos.write(str.getBytes());
-
-			 }
-			 fos.close();
-			 
-			 System.out.println("finished writing");
+				public void run()
+				{
+					while(true)
+					{
+				     	new SSHconnect_read().execute(null,null,null);
+			            Log.i("Thread", "Running parallely");
+						try {
+							Thread.sleep(4000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			 }).start();
 		 }catch(Exception e)
 		 {
 			 e.printStackTrace();
 		 }
 		 
 	 }
-	
+	 
+	 private void splitString()
+	 {
+		 plugs = listOfPlugs.saved_memory_of_plugs.split("/");
+	 }
 
 	private class SSHconnect_read extends AsyncTask<URL, Integer, Long>
 		{
@@ -92,14 +112,15 @@ public class HeaderFragment extends ListFragment {
 					
 					connectAndRead c = new connectAndRead();
 					c.establishConnection();
-					listOfPlugs.plug_namez = c.readFile();
-
+					//listOfPlugs.plug_namez = c.readFile();
+					plug_names = c.readFile();
+					listOfPlugs.plug_namez  = plug_names;
 
 				}catch(Exception e)
 				{
 					e.printStackTrace();
 				}
-				
+
 				return null;
 			}
 			
@@ -107,10 +128,22 @@ public class HeaderFragment extends ListFragment {
 			  protected void onPostExecute(Long result) {
 				  int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
 			                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-			      adapter = new ArrayAdapter<String>(getActivity(), layout, listOfPlugs.plug_namez);
+				  boolean test = false;
+				  splitString();
+				  for(String t : plugs)
+				  {
+					  test = plug_names.contains(t);
+					  if(test == true)
+					  {
+						  plugsFromMemory.add(t);
+						  //System.out.println(t);
+					  }
+				  }
+			      adapter = new ArrayAdapter<String>(getActivity(), layout, plug_names);
 				  adapter.notifyDataSetChanged();
 			      setListAdapter(adapter);
-
+				
+			      //writeOutSavedDevices();
 
 			     }
 		}
@@ -129,6 +162,13 @@ public class HeaderFragment extends ListFragment {
 	            throw new ClassCastException(activity.toString()
 	                    + " must implement ListClickListener");
 	        }
+	        
+	        try{
+	        	wCallBack = (writing) activity;
+	        }catch(ClassCastException e) {
+	            throw new ClassCastException(activity.toString()
+	                    + " must implement writing");
+	        }
 	    }
 
 
@@ -145,7 +185,8 @@ public class HeaderFragment extends ListFragment {
 	 public void onStop()
 	 {
 		 super.onStop();
-		 writeOutSavedDevices();
+		 wCallBack.writeOutSavedDevices(plug_names);
+
 	 }
 
 	 @Override

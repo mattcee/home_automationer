@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -19,7 +20,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Switch;
 
-public class ListActivity extends FragmentActivity implements HeaderFragment.ListClickListener, ModifyFragment.scheduleButton, ScheduleFragment.currentSchedule {
+public class ListActivity extends FragmentActivity implements HeaderFragment.writing, HeaderFragment.ListClickListener, ModifyFragment.scheduleButton, ScheduleFragment.currentSchedule {
 
 	//private String clicked_plugName;
 
@@ -192,15 +193,21 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.Lis
 	 String FILENAME = "saved_devices";
 
 
-	 private void writeOutSavedDevices()
+	 public void writeOutSavedDevices(List<String> plug_name)
 	 {
-		 String test = "hello world!";
+		 //String test = "hello world test!";
 		 FileOutputStream fos;
 
 		 try{
 			 
 			 fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-			 fos.write(test.getBytes());
+			 for(String str : plug_name)
+			 {
+				 String parse = str + "/";
+				 fos.write(parse.getBytes());
+				 
+			 }
+			 //fos.write(test.getBytes());
 			 fos.close();
 			 
 			 System.out.println("finished writing");
@@ -256,6 +263,7 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.Lis
 						       sb.append(line);
 						   }
 						System.out.println(sb);
+						listOfPlugs.saved_memory_of_plugs = sb.toString();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
