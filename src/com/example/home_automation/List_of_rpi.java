@@ -4,7 +4,7 @@ public class List_of_rpi {
 
 	public static String host_name = "pi";
 	public static String password = "raspberry";
-	public static String ip_address = "169.234.60.91";
+	public static String ip_address = "169.234.15.74";
 	
 
 	

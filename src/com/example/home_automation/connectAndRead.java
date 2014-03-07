@@ -11,7 +11,7 @@ import com.jcraft.jsch.ChannelExec;
 
 public class connectAndRead extends connection{
 	//temp string maybe static later 
-	String remoteFilename = "test.txt";
+	String remoteFilename = "result.txt";
 
 	public connectAndRead()
 	{

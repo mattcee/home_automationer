@@ -10,5 +10,8 @@
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="title_activity_my_profiles">MyProfilesActivity</string>
     <string name = "current_label">Current Amount:</string>
+    <string name = "alarm_am">AM</string>
+    <string name ="alarm_pm">PM</string>
+    
 
 </resources>

@@ -9,11 +9,13 @@
  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
  <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>    
- <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />    
+ <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />  
+  <!-- this is for alarm  -->
+ <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/home"
@@ -29,6 +31,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name="com.example.home_automation.AlarmReciever"
+      	  android:enabled="false">
+ 		   <intent-filter>
+  		      <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+   		   </intent-filter>
+		</receiver>
+        
         <activity
             android:name="com.example.home_automation.ListActivity"
             android:label="@string/title_activity_list"

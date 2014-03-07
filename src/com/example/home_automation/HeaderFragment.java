@@ -78,10 +78,11 @@ public class HeaderFragment extends ListFragment {
 				{
 					while(true)
 					{
-				     	new SSHconnect_read().execute(null,null,null);
-			            Log.i("Thread", "Running parallely");
+				     	
 						try {
-							Thread.sleep(4000);
+							new SSHconnect_read().execute(null,null,null);
+				            Log.i("Thread", "Running parallely");
+							Thread.sleep(10000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

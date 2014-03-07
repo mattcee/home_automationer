@@ -27,9 +27,6 @@ public class MainActivity extends Activity {
 		final AnimationDrawable myAnimationDrawable
 		= (AnimationDrawable)myAnimation.getDrawable();
 		
-
-		
-		
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 
@@ -56,9 +53,6 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-
-
 	
 	private void start_program()
 	{
