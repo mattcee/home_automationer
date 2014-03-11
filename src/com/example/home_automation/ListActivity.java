@@ -1,6 +1,11 @@
+//  Created by Matthew cai on 3/8/14.
+//  Copyright (c) 2014 Matthew cai. All rights reserved.
+//
 package com.example.home_automation;
 
 import java.io.BufferedReader;
+import com.example.scheduler.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -18,18 +25,37 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
-public class ListActivity extends FragmentActivity implements HeaderFragment.writing, HeaderFragment.ListClickListener, ModifyFragment.scheduleButton, ScheduleFragment.currentSchedule {
+public class ListActivity extends FragmentActivity implements MyProfilesFragment.ClickOnHours, HeaderFragment.writing, HeaderFragment.ListClickListener, ModifyFragment.scheduleButton, ScheduleFragment.currentSchedule {
 
 	//private String clicked_plugName;
+	private SensorManager mSensorManager;
+
+	  private ShakeEventListener mSensorListener;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
-		
+
+		  
+		  mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		    mSensorListener = new ShakeEventListener();   
+
+		    mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+		      public void onShake() {
+		    	  System.out.println("shake");
+		        	new SSHconnections_shake().execute(null,null,null);
+
+		        //Toast.makeText(context, "Shake!", Toast.LENGTH_SHORT).show();
+		      }
+		    });
 		if (findViewById(R.id.fragment_container) != null) {
 
             // However, if we're being restored from a previous state,
@@ -54,7 +80,20 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.wri
 
 	}
 	
+	@Override
+	  protected void onResume() {
+	    super.onResume();
+	    mSensorManager.registerListener(mSensorListener,
+	        mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+	        SensorManager.SENSOR_DELAY_UI);
+	  }
 
+	  @Override
+	  protected void onPause() {
+	    mSensorManager.unregisterListener(mSensorListener);
+	    super.onPause();
+	  }
+	  
 	//handles the plug that is selected from the main page
 	public void onPlugSelected(int position)
 	{
@@ -130,6 +169,31 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.wri
 		//on postexecute maybe let the user know that the device is on with a green light button or a red button
 	
 	}
+	
+	
+	private class SSHconnections_shake extends AsyncTask<URL, Integer, Long>
+	{
+	
+
+		@Override
+		protected Long doInBackground(URL... arg0) {
+			// TODO Auto-generated method stub
+			//connection c = new connection(1);
+			//c.establishConnection();
+
+			shaketurnon t = new shaketurnon();
+			t.open_turon();
+
+			return null;
+		}
+		
+		//need to add onPreExecute() to prepare the load screen for the program
+		
+		//need to add onProgressUpdate() to add a spinner that shows that is connecting to turn on/off
+		//on postexecute maybe let the user know that the device is on with a green light button or a red button
+	
+	}
+	
 	
 	//turning off the lights
 	private class SSHconnections_OFF extends AsyncTask<URL, Integer, Long>
@@ -280,6 +344,14 @@ public class ListActivity extends FragmentActivity implements HeaderFragment.wri
 
 		 }
 		
+		 
+		 //handles clicks on scheduler
+		 
+		 public void onClickListener()
+		 {
+				System.out.println("testeststsetsetestsetest");
+
+		 }
 		
 
 	@Override

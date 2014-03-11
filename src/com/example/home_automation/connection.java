@@ -1,3 +1,6 @@
+//  Created by Matthew cai on 3/8/14.
+//  Copyright (c) 2014 Matthew cai. All rights reserved.
+//
 package com.example.home_automation;
 
 import com.jcraft.jsch.Channel;

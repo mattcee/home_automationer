@@ -1,8 +1,16 @@
+//  Created by Matthew cai on 3/8/14.
+//  Copyright (c) 2014 Matthew cai. All rights reserved.
+//
 package com.example.home_automation;
 
+import java.net.URL;
+
 import com.example.home_automation.HeaderFragment.ListClickListener;
+import com.example.home_automation.ListActivity.SSHconnections_shake;
 
 import android.support.v4.app.Fragment;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -45,7 +54,8 @@ public class ModifyFragment extends Fragment implements OnClickListener{
     	//switch
     	toggle = (Switch) myView.findViewById(R.id.switch1);
     	
-    	
+    	new SSHconnection_readGPIO().execute(null,null,null);
+
     	//Power textView
     	
     	power = (TextView) myView.findViewById(R.id.powerTextView);
@@ -107,8 +117,36 @@ public class ModifyFragment extends Fragment implements OnClickListener{
 	                    + " must implement scheduleButton");
 	        }
 	    }
+	 	String checks = "0";
+		private class SSHconnection_readGPIO extends AsyncTask<URL, Integer, Long>
+		{
 
-	
+			@Override
+			protected Long doInBackground(URL... arg0) {
+				// TODO Auto-generated method stub
+				readGPIO t = new readGPIO();
+				checks = t.read();
+				return null;
+			}
+			
+			@Override
+			  protected void onPostExecute(Long result) {
+				 
+				if(checks.equals("0"))
+				{
+					toggle.setChecked(false);
+				}
+				else
+				{
+					toggle.setChecked(true);
+				}
+				
+
+
+
+			     }
+			
+		}
 	  
 	@Override
 	    public void onSaveInstanceState(Bundle outState) {

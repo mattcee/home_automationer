@@ -1,3 +1,6 @@
+//  Created by Matthew cai on 3/8/14.
+//  Copyright (c) 2014 Matthew cai. All rights reserved.
+//
 package com.example.home_automation;
 
 import java.io.BufferedReader;
@@ -55,13 +58,13 @@ public class HeaderFragment extends ListFragment {
 
 	        // We need to use a different list item layout for devices older than Honeycomb
 	        
-        	int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-	                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
+        	//int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+	          //      android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
 	        // Create an array adapter for the list view, using the Ipsum headlines array
 	        //listOfPlugs plugs = new listOfPlugs();
-	        adapter = new ArrayAdapter<String>(getActivity(), layout, plug_names);
+	        //adapter = new ArrayAdapter<String>(getActivity(), layout, plug_names);
 	       // writeOutSavedDevices();
-	        setListAdapter(adapter);
+	       // setListAdapter(adapter);
 	        //System.out.println("size of arraylist" + plug_names.size());
 	        //readSavedDevices();
 	        

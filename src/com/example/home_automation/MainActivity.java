@@ -1,3 +1,6 @@
+//  Created by Matthew cai on 3/8/14.
+//  Copyright (c) 2014 Matthew cai. All rights reserved.
+//
 package com.example.home_automation;
 
 import java.io.FileOutputStream;
@@ -7,10 +10,12 @@ import android.os.Handler;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.Menu;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -22,7 +27,11 @@ public class MainActivity extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_main);
-
+		//setting font type
+		 TextView tv = (TextView) findViewById(R.id.textView1);
+		    tv.setTypeface(Typeface.createFromAsset(getAssets(), "font/manteka.ttf"));
+		    
+		    
 		ImageView myAnimation = (ImageView)findViewById(R.id.myanimation);
 		final AnimationDrawable myAnimationDrawable
 		= (AnimationDrawable)myAnimation.getDrawable();
