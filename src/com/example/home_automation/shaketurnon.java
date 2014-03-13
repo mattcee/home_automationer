@@ -70,7 +70,7 @@ try{
 	      
 	    
 	      channel.disconnect();
-	      Thread.sleep(1000);
+	      Thread.sleep(500);
 
 	}catch(Exception e)
 	{

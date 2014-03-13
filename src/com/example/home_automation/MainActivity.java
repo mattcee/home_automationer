@@ -4,7 +4,9 @@
 package com.example.home_automation;
 
 import java.io.FileOutputStream;
+import java.net.URL;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -43,6 +45,7 @@ public class MainActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 				  myAnimationDrawable.start();
+		        new SSHconnections_run().execute(null,null,null);
 
 				start_program(); // transitioning to the list view of the plug loads
 				finish();
@@ -53,6 +56,35 @@ public class MainActivity extends Activity {
 	}
 
 
+	
+	private class SSHconnections_run extends AsyncTask<URL, Integer, Long>
+	{
+	
+
+		@Override
+		protected Long doInBackground(URL... arg0) {
+			// TODO Auto-generated method stub
+			//connection c = new connection(1);
+			//c.establishConnection();
+			turnon z = new turnon();
+			z.open_turon();
+			
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			startuprun t = new startuprun();
+//			t.running();
+			
+			return null;
+		}
+		
+
+	
+	}
 	
 	//http://stackoverflow.com/questions/11455455/splash-screen-alpha-animation-in-android/11456132#11456132
 	

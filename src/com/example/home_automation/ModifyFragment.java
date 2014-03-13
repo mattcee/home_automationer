@@ -6,8 +6,8 @@ package com.example.home_automation;
 import java.net.URL;
 
 import com.example.home_automation.HeaderFragment.ListClickListener;
-import com.example.home_automation.ListActivity.SSHconnections_shake;
 
+import android.R;
 import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -34,6 +35,7 @@ public class ModifyFragment extends Fragment implements OnClickListener{
     scheduleButton mCallBack;
     Switch toggle;
     TextView power;
+    ImageView img;
     public interface scheduleButton
     {
     	public void schedule_botton_click();
@@ -61,7 +63,7 @@ public class ModifyFragment extends Fragment implements OnClickListener{
     	power = (TextView) myView.findViewById(R.id.powerTextView);
     	
     	
-    	
+    	img = (ImageView) myView.findViewById(R.id.imageView1);
     	//use only when we get the saved preference correct
     	//toggle.setChecked(true);
 		return myView;
@@ -99,6 +101,7 @@ public class ModifyFragment extends Fragment implements OnClickListener{
 		//listOfPlugs plugs = new listOfPlugs();
 		//String name = plugs.plug_names[position];
 		String name = listOfPlugs.plug_namez.get(position);
+
 		getActivity().setTitle(name);
 		mCurrentPosition = position;
 	}
